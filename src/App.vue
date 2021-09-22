@@ -1,15 +1,15 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CuurencyConvertor msg="Vue Currency Convertor"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CuurencyConvertor from './components/CurrencyConvertor.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CuurencyConvertor
   }
 }
 </script>
