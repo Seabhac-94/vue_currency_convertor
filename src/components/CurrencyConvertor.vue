@@ -1,14 +1,21 @@
 <template>
     <h1>{{ msg }}</h1>
+    <button @click="getRates()">Testing response</button>
     <div>
       <h3>Base Currency: {{ baseCurrency }}</h3>
-      <button @click="getRates">click me</button>
-      {{ info }}
+      <div>
+          <label for="currency">Choose a currency: </label>
+          <select id="currency_select" name="currency">
+            <option v-for="(key, value) in rates" :key="key">{{value}}</option>
+          </select>
+      </div>
     </div>
+
 </template>
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'CurrencyConvertor',
   props: {
@@ -18,7 +25,9 @@ export default {
     return {
       apiEndpoint: "http://api.exchangeratesapi.io/v1/latest?access_key=7d16f262614ade1acdd720850c47bfae",
       info: null,
-      baseCurrency: ""
+      baseCurrency: "",
+      rates: null,
+      selectedCurrency: null
     }
   },
   mounted(){
@@ -26,13 +35,13 @@ export default {
       .then(response => {
         this.info = response.data
         this.baseCurrency = this.info.base
+        this.rates = this.info.rates
       })
   },
   methods:{
-    getRates() {
-      const rates = this.info.rates
-      console.log(Object.values(rates))
-    }
+    getRates(){
+      
+    },
   }
 }
 </script>

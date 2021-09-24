@@ -1,15 +1,15 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <CuurencyConvertor msg="Vue Currency Convertor"/>
+  <CurrencyConvertor msg="Vue Currency Convertor"/>
 </template>
 
 <script>
-import CuurencyConvertor from './components/CurrencyConvertor.vue'
+import CurrencyConvertor from './components/CurrencyConvertor.vue'
 
 export default {
   name: 'App',
   components: {
-    CuurencyConvertor
+    CurrencyConvertor
   }
 }
 </script>
