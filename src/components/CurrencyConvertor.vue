@@ -1,13 +1,26 @@
 <template>
     <h1>{{ msg }}</h1>
-    <button @click="getRates()">Testing response</button>
+    <button>Testing response</button>
     <div>
       <h3>Base Currency: {{ baseCurrency }}</h3>
       <div>
-          <label for="currency">Choose a currency: </label>
+          <!-- <label for="currency">Choose a currency: </label>
           <select id="currency_select" name="currency">
             <option v-for="(key, value) in rates" :key="key">{{value}}</option>
-          </select>
+          </select> -->
+          <!-- <select id="currency_select" name="currency">
+            <option>{{selectedCurrencyCode}}</option>
+          </select> -->
+          <p>
+            <label for="userInputCurrencyCode">Currency Code </label>
+            <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode">
+          </p>
+          <p>
+            <label for="userInputCurrency">Amount </label>
+            <input name="userInputCurrency" type="text" v-model="userInputCurrency">
+          </p>
+          <button @click="getSelectedRate()">Convert</button>
+          <p>{{ result }}</p>
       </div>
     </div>
 
@@ -19,7 +32,7 @@ import axios from 'axios'
 export default {
   name: 'CurrencyConvertor',
   props: {
-    msg: String
+    msg: String,
   },
   data(){
     return {
@@ -27,7 +40,12 @@ export default {
       info: null,
       baseCurrency: "",
       rates: null,
-      selectedCurrency: null
+      userInputCurrencyCode: null,
+      userInputCurrency: null,
+      listOfCurrencyCodes: [],
+      currencyCode: null,
+      currency: null,
+      result: null
     }
   },
   mounted(){
@@ -36,12 +54,28 @@ export default {
         this.info = response.data
         this.baseCurrency = this.info.base
         this.rates = this.info.rates
+        for (const key in this.rates) {
+          if (Object.hasOwnProperty.call(this.rates, key)) {
+            this.currencyCode = key,
+            this.listOfCurrencyCodes.push(this.currencyCode),
+            this.currency = this.rates[key]
+            // console.log(this.currencyCode + ' ' + this.currency)
+          }
+      } 
       })
   },
   methods:{
-    getRates(){
-      
+    getSelectedRate(){
+      if (this.listOfCurrencyCodes.includes(this.userInputCurrencyCode)) {
+        console.log(this.userInputCurrencyCode)
+        
+      } else {
+        console.log("error")
+      }
     },
+  },
+  computed: {
+
   }
 }
 </script>
