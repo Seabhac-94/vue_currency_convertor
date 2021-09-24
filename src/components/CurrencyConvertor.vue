@@ -43,6 +43,7 @@ export default {
       userInputCurrencyCode: null,
       userInputCurrency: null,
       listOfCurrencyCodes: [],
+      listOfRates: [],
       currencyCode: null,
       currency: null,
       result: null
@@ -57,7 +58,8 @@ export default {
         for (const key in this.rates) {
           if (Object.hasOwnProperty.call(this.rates, key)) {
             this.currencyCode = key,
-            this.listOfCurrencyCodes.push(this.currencyCode),
+            // this.listOfCurrencyCodes.push(this.currencyCode),
+            // console.log(this.listOfCurrencyCodes)
             this.currency = this.rates[key]
             // console.log(this.currencyCode + ' ' + this.currency)
           }
@@ -65,14 +67,14 @@ export default {
       })
   },
   methods:{
-    getSelectedRate(){
-      if (this.listOfCurrencyCodes.includes(this.userInputCurrencyCode)) {
-        console.log(this.userInputCurrencyCode)
+    // getSelectedRate(){
+    //   if (this.listOfCurrencyCodes.includes(this.userInputCurrencyCode)) {
+    //     console.log(this.userInputCurrencyCode)
         
-      } else {
-        console.log("error")
-      }
-    },
+    //   } else {
+    //     console.log("error")
+    //   }
+    // },
   },
   computed: {
 
