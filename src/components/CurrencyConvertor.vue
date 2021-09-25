@@ -5,14 +5,14 @@
       <div >
           <p>
             <label for="userInputCurrencyCode">Currency Code </label>
-            <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode"> <span v-if="currencyCodeIsNotValid">Currency Code not valid!</span>
+            <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode"> <span class="currency_not_valid" v-if="currencyCodeIsNotValid">Currency Code not valid!</span>
           </p>
           <p>
             <label for="userInputAmount">Amount </label>
             <input name="userInputAmount" type="number" v-model="userInputAmount">
           </p>
           <button @click="getSelectedRate()">Convert</button>
-          <p v-if="showResult">{{userInputAmount}} {{userInputCurrencyCode}} is {{ displayedResult }} {{baseCurrency}}</p>
+          <p v-if="showResult">{{ amount }} {{ currencyCode.toUpperCase() }} is {{ result.toFixed(2) }} {{baseCurrency}}</p>
       </div>
     </div>
 
@@ -32,13 +32,13 @@ export default {
       info: null,
       baseCurrency: "",
       rates: null,
-      userInputCurrencyCode: "",
-      userInputAmount: null,
+      userInputCurrencyCode: "USD",
+      userInputAmount: 10,
+      amount: null,
       currencyCode: null,
       currencyCodeIsNotValid: null,
       rateOfCurrency: null,
       result: null,
-      displayedResult: null,
       showResult: false
     }
   },
@@ -57,8 +57,8 @@ export default {
               this.currencyCode = cCode,
               this.rateOfCurrency = this.rates[cCode]
               // this.result = this.userInputAmount * this.rateOfCurrency
-              this.result = this.userInputAmount / this.rateOfCurrency
-              this.displayedResult = this.result.toFixed(2)
+              this.amount = this.userInputAmount
+              this.result = this.amount / this.rateOfCurrency
               this.currencyCodeIsNotValid = false,
               this.showResult = true
               break
@@ -99,5 +99,14 @@ li {
 }
 a {
   color: #42b983;
+} 
+
+.currency_not_valid {
+  border: 2px solid red;
+  padding: 3px;
+  border-radius: 5px;
+  color: red;
+
 }
+
 </style>
