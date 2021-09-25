@@ -2,16 +2,16 @@
     <h1>{{ msg }}</h1>
     <div>
       <h3>Base Currency: {{ baseCurrency }}</h3>
-      <div @keyup="getSelectedRate()">
+      <div >
           <p>
             <label for="userInputCurrencyCode">Currency Code </label>
-            <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode">
+            <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode"> <span v-if="currencyCodeIsNotValid">Currency Code not valid!</span>
           </p>
           <p>
             <label for="userInputAmount">Amount </label>
             <input name="userInputAmount" type="number" v-model="userInputAmount">
           </p>
-          <button>Convert</button>
+          <button @click="getSelectedRate()">Convert</button>
           <p v-if="showResult">{{userInputAmount}} {{userInputCurrencyCode}} is {{ displayedResult }} {{baseCurrency}}</p>
       </div>
     </div>
@@ -32,9 +32,10 @@ export default {
       info: null,
       baseCurrency: "",
       rates: null,
-      userInputCurrencyCode: "USD",
-      userInputAmount: 10,
+      userInputCurrencyCode: "",
+      userInputAmount: null,
       currencyCode: null,
+      currencyCodeIsNotValid: null,
       rateOfCurrency: null,
       result: null,
       displayedResult: null,
@@ -58,10 +59,14 @@ export default {
               // this.result = this.userInputAmount * this.rateOfCurrency
               this.result = this.userInputAmount / this.rateOfCurrency
               this.displayedResult = this.result.toFixed(2)
+              this.currencyCodeIsNotValid = false,
               this.showResult = true
+              break
               }
-          else {
-            console.log("Searching...")
+          else{
+            this.currencyCodeIsNotValid = true,
+            this.currencyCode = null,
+            this.rateOfCurrency = null
           }
       }
       console.log(this.currencyCode + ' ' + this.rateOfCurrency)
