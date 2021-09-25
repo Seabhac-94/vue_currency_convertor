@@ -56,7 +56,6 @@ export default {
           if (this.userInputCurrencyCode.toUpperCase() === cCode && Object.hasOwnProperty.call(this.rates, cCode)) {
               this.currencyCode = cCode,
               this.rateOfCurrency = this.rates[cCode]
-              // this.result = this.userInputAmount * this.rateOfCurrency
               this.amount = this.userInputAmount
               this.result = this.amount * this.rateOfCurrency
               this.currencyCodeIsNotValid = false,
