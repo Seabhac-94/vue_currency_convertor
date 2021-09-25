@@ -2,17 +2,17 @@
     <h1>{{ msg }}</h1>
     <div>
       <h3>Base Currency: {{ baseCurrency }}</h3>
-      <div>
+      <div @keyup="getSelectedRate()">
           <p>
             <label for="userInputCurrencyCode">Currency Code </label>
             <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode">
           </p>
           <p>
             <label for="userInputAmount">Amount </label>
-            <input name="userInputAmount" type="text" v-model="userInputAmount">
+            <input name="userInputAmount" type="number" v-model="userInputAmount">
           </p>
-          <button @click="getSelectedRate()">Convert</button>
-          <p>{{userInputAmount}} {{userInputCurrencyCode}} is {{ result }} {{baseCurrency}}</p>
+          <button>Convert</button>
+          <p v-if="showResult">{{userInputAmount}} {{userInputCurrencyCode}} is {{ displayedResult }} {{baseCurrency}}</p>
       </div>
     </div>
 
@@ -32,11 +32,13 @@ export default {
       info: null,
       baseCurrency: "",
       rates: null,
-      userInputCurrencyCode: "",
-      userInputAmount: null,
+      userInputCurrencyCode: "USD",
+      userInputAmount: 10,
       currencyCode: null,
       rateOfCurrency: null,
-      result: null
+      result: null,
+      displayedResult: null,
+      showResult: false
     }
   },
   mounted(){
@@ -55,8 +57,8 @@ export default {
               this.rateOfCurrency = this.rates[cCode]
               // this.result = this.userInputAmount * this.rateOfCurrency
               this.result = this.userInputAmount / this.rateOfCurrency
-              this.result = this.result.toFixed(2)
-              break
+              this.displayedResult = this.result.toFixed(2)
+              this.showResult = true
               }
           else {
             console.log("Searching...")
@@ -65,9 +67,15 @@ export default {
       console.log(this.currencyCode + ' ' + this.rateOfCurrency)
     },
   },
-  computed: {
-
-  }
+watch: {
+  // result(value){
+  //   if (value != this.userInputAmount / this.rateOfCurrency) {
+  //     this.showResult = false
+  //   } else {
+  //     this.showResult = true
+  //   }
+  // }
+}
 }
 </script>
 
