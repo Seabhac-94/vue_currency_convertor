@@ -12,7 +12,7 @@
             <input name="userInputAmount" type="text" v-model="userInputAmount">
           </p>
           <button @click="getSelectedRate()">Convert</button>
-          <p>{{ result }}</p>
+          <p>{{userInputAmount}} {{userInputCurrencyCode}} is {{ result }} {{baseCurrency}}</p>
       </div>
     </div>
 
@@ -34,8 +34,6 @@ export default {
       rates: null,
       userInputCurrencyCode: "",
       userInputAmount: null,
-      listOfCurrencyCodes: [],
-      listOfRates: [],
       currencyCode: null,
       rateOfCurrency: null,
       result: null
@@ -51,14 +49,14 @@ export default {
   },
   methods:{
     getSelectedRate(){
-        for (const code in this.rates) {
-          if (this.userInputCurrencyCode.toUpperCase() === code && Object.hasOwnProperty.call(this.rates, code)) {
-              this.currencyCode = code,
-              // this.listOfCurrencyCodes.push(this.currencyCode)
-              this.rateOfCurrency = this.rates[code]
-              this.result = this.userInputAmount * this.rateOfCurrency
+        for (const cCode in this.rates) {
+          if (this.userInputCurrencyCode.toUpperCase() === cCode && Object.hasOwnProperty.call(this.rates, cCode)) {
+              this.currencyCode = cCode,
+              this.rateOfCurrency = this.rates[cCode]
+              // this.result = this.userInputAmount * this.rateOfCurrency
+              this.result = this.userInputAmount / this.rateOfCurrency
+              this.result = this.result.toFixed(2)
               break
-              // this.listOfRates.push(this.rateOfCurrency)
               }
           else {
             console.log("Searching...")
