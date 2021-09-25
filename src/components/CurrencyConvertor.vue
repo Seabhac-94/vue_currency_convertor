@@ -1,23 +1,15 @@
 <template>
     <h1>{{ msg }}</h1>
-    <button>Testing response</button>
     <div>
       <h3>Base Currency: {{ baseCurrency }}</h3>
       <div>
-          <!-- <label for="currency">Choose a currency: </label>
-          <select id="currency_select" name="currency">
-            <option v-for="(key, value) in rates" :key="key">{{value}}</option>
-          </select> -->
-          <!-- <select id="currency_select" name="currency">
-            <option>{{selectedCurrencyCode}}</option>
-          </select> -->
           <p>
             <label for="userInputCurrencyCode">Currency Code </label>
             <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode">
           </p>
           <p>
-            <label for="userInputCurrency">Amount </label>
-            <input name="userInputCurrency" type="text" v-model="userInputCurrency">
+            <label for="userInputAmount">Amount </label>
+            <input name="userInputAmount" type="text" v-model="userInputAmount">
           </p>
           <button @click="getSelectedRate()">Convert</button>
           <p>{{ result }}</p>
@@ -40,12 +32,12 @@ export default {
       info: null,
       baseCurrency: "",
       rates: null,
-      userInputCurrencyCode: null,
-      userInputCurrency: null,
+      userInputCurrencyCode: "",
+      userInputAmount: null,
       listOfCurrencyCodes: [],
       listOfRates: [],
       currencyCode: null,
-      currency: null,
+      rateOfCurrency: null,
       result: null
     }
   },
@@ -55,26 +47,25 @@ export default {
         this.info = response.data
         this.baseCurrency = this.info.base
         this.rates = this.info.rates
-        for (const key in this.rates) {
-          if (Object.hasOwnProperty.call(this.rates, key)) {
-            this.currencyCode = key,
-            // this.listOfCurrencyCodes.push(this.currencyCode),
-            // console.log(this.listOfCurrencyCodes)
-            this.currency = this.rates[key]
-            // console.log(this.currencyCode + ' ' + this.currency)
-          }
-      } 
       })
   },
   methods:{
-    // getSelectedRate(){
-    //   if (this.listOfCurrencyCodes.includes(this.userInputCurrencyCode)) {
-    //     console.log(this.userInputCurrencyCode)
-        
-    //   } else {
-    //     console.log("error")
-    //   }
-    // },
+    getSelectedRate(){
+        for (const code in this.rates) {
+          if (this.userInputCurrencyCode.toUpperCase() === code && Object.hasOwnProperty.call(this.rates, code)) {
+              this.currencyCode = code,
+              // this.listOfCurrencyCodes.push(this.currencyCode)
+              this.rateOfCurrency = this.rates[code]
+              this.result = this.userInputAmount * this.rateOfCurrency
+              break
+              // this.listOfRates.push(this.rateOfCurrency)
+              }
+          else {
+            console.log("Searching...")
+          }
+      }
+      console.log(this.currencyCode + ' ' + this.rateOfCurrency)
+    },
   },
   computed: {
 
