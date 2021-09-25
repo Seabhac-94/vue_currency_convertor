@@ -31,7 +31,7 @@ export default {
       apiEndpoint: "http://api.exchangeratesapi.io/v1/latest?access_key=7d16f262614ade1acdd720850c47bfae",
       info: null,
       baseCurrency: "",
-      userInputBaseCurrency: "TWD",
+      userInputBaseCurrency: "EUR",
       rates: null,
       userInputCurrencyCode: "USD",
       userInputAmount: 10,

@@ -1,8 +1,6 @@
 # vue_currency_convertor_component
 
-Simple Currency Convertor using EUR as a base.
-
-Next steps will be to make it possible to select which currency you want to have as base.
+Currency convertor that lets users choose base currency and desired currency to convert.
 
 - Source: http://api.exchangeratesapi.io 
 - Technologies used: Vue, Axios
@@ -16,8 +14,7 @@ Demo screenshot below:
 
 ## Styling
 
-Styling is simple and clean on purpose, the main point here is functionality. Once all functionality has been added, then the styling will be improved.
-
+Styling is simple and clean on purpose. Some work will be done to ensure a clean look.
 ## Project setup
 ```
 npm install
