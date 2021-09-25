@@ -1,7 +1,7 @@
 <template>
     <h1>{{ msg }}</h1>
     <div>
-      <p>Base Currency: <input type="text" v-model="userInputBaseCurrency"> <span class="currency_not_valid" v-if="currencyCodeIsNotValid">Currency Code not valid!</span> </p>
+      <p>Base Currency: <input type="text" v-model="userInputBaseCurrency"> <span class="currency_not_valid" v-if="baseCurrencyCodeIsNotValid">Currency Code not valid!</span> </p>
       <div>
           <p>
             <label for="userInputAmount">Amount € </label>
@@ -12,7 +12,7 @@
             <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode"> <span class="currency_not_valid" v-if="currencyCodeIsNotValid">Currency Code not valid!</span>
           </p>
           <button type="submit" class="submit_button" @click="getSelectedRate()">Convert</button>
-          <p v-if="showResult">{{ amount.toFixed(2) }} {{ baseCurrency }} is {{ result.toFixed(2) }} {{ currencyCode }}</p>
+          <p v-if="showcCodeResult && showsCCodeResult">{{ amount.toFixed(2) }} {{ baseCurrency }} is {{ result.toFixed(2) }} {{ currencyCode }}</p>
       </div>
     </div>
 
@@ -38,9 +38,10 @@ export default {
       amount: null,
       currencyCode: null,
       currencyCodeIsNotValid: null,
+      baseCurrencyCodeIsNotValid: null,
       rateOfCurrency: null,
       result: null,
-      showResult: false
+      showcCodeResult: false
     }
   },
   mounted(){
@@ -59,26 +60,29 @@ export default {
               this.rateOfCurrency = this.rates[cCode]
               this.amount = this.userInputAmount
               this.currencyCodeIsNotValid = false,
-              this.showResult = true
+              this.showcCodeResult = true
               break
               }
           else {
             this.currencyCodeIsNotValid = true,
             this.currencyCode = null,
             this.rateOfCurrency = null
-            this.showResult = false
+            this.showcCodeResult = false
           }
       }
       for (const sCCode in this.rates) {
         if (this.userInputBaseCurrency.toUpperCase() === sCCode && Object.hasOwnProperty.call(this.rates, sCCode)) {
           this.baseCurrency = sCCode
           this.rateOfBaseCurrency = this.rates[sCCode]
-         
-        }
+          this.baseCurrencyCodeIsNotValid = false
+          this.showsCCodeResult = true
+          break
+        } else {
+          this.baseCurrencyCodeIsNotValid = true
+          this.showsCCodeResult = false
+        } 
       }
       this.result = this.amount * this.rateOfCurrency / this.rateOfBaseCurrency
-      console.log(this.currencyCode + ' ' + this.rateOfCurrency)
-      console.log(this.baseCurrency + ' ' + this.rateOfBaseCurrency)
     },
   }
 }
