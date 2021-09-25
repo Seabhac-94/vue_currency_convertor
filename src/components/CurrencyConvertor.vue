@@ -1,11 +1,11 @@
 <template>
     <h1>{{ msg }}</h1>
     <div>
-      <h3>Base Currency: {{ baseCurrency }}</h3>
+      <p>Base Currency: <input type="text" v-model="userInputBaseCurrency"> <span class="currency_not_valid" v-if="currencyCodeIsNotValid">Currency Code not valid!</span> </p>
       <div>
           <p>
             <label for="userInputAmount">Amount € </label>
-            <input name="userInputAmount" type="number" v-model="userInputAmount">
+            <input name="userInputAmount" type="number" v-model="userInputAmount"> 
           </p>
           <p>
             <label for="userInputCurrencyCode">Currency Code </label>
@@ -31,6 +31,7 @@ export default {
       apiEndpoint: "http://api.exchangeratesapi.io/v1/latest?access_key=7d16f262614ade1acdd720850c47bfae",
       info: null,
       baseCurrency: "",
+      userInputBaseCurrency: "TWD",
       rates: null,
       userInputCurrencyCode: "USD",
       userInputAmount: 10,
@@ -57,7 +58,6 @@ export default {
               this.currencyCode = cCode,
               this.rateOfCurrency = this.rates[cCode]
               this.amount = this.userInputAmount
-              this.result = this.amount * this.rateOfCurrency
               this.currencyCodeIsNotValid = false,
               this.showResult = true
               break
@@ -69,7 +69,16 @@ export default {
             this.showResult = false
           }
       }
+      for (const sCCode in this.rates) {
+        if (this.userInputBaseCurrency.toUpperCase() === sCCode && Object.hasOwnProperty.call(this.rates, sCCode)) {
+          this.baseCurrency = sCCode
+          this.rateOfBaseCurrency = this.rates[sCCode]
+         
+        }
+      }
+      this.result = this.amount * this.rateOfCurrency / this.rateOfBaseCurrency
       console.log(this.currencyCode + ' ' + this.rateOfCurrency)
+      console.log(this.baseCurrency + ' ' + this.rateOfBaseCurrency)
     },
   }
 }
