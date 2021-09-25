@@ -71,24 +71,13 @@ export default {
       }
       console.log(this.currencyCode + ' ' + this.rateOfCurrency)
     },
-  },
-watch: {
-  // result(value){
-  //   if (value != this.userInputAmount / this.rateOfCurrency) {
-  //     this.showResult = false
-  //   } else {
-  //     this.showResult = true
-  //   }
-  // }
-}
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* h3 {
-  margin: 40px 0 0;
-} */
+
 ul {
   list-style-type: none;
   padding: 0;
