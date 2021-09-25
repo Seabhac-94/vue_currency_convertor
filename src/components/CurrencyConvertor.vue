@@ -11,8 +11,8 @@
             <label for="userInputAmount">Amount </label>
             <input name="userInputAmount" type="number" v-model="userInputAmount">
           </p>
-          <button @click="getSelectedRate()">Convert</button>
-          <p v-if="showResult">{{ amount }} {{ currencyCode.toUpperCase() }} is {{ result.toFixed(2) }} {{baseCurrency}}</p>
+          <button type="submit" class="submit_button" @click="getSelectedRate()">Convert</button>
+          <p v-if="showResult">{{ amount }} {{ currencyCode }} is {{ result.toFixed(2) }} {{ baseCurrency }}</p>
       </div>
     </div>
 
@@ -63,7 +63,7 @@ export default {
               this.showResult = true
               break
               }
-          else{
+          else {
             this.currencyCodeIsNotValid = true,
             this.currencyCode = null,
             this.rateOfCurrency = null
@@ -106,7 +106,19 @@ a {
   padding: 3px;
   border-radius: 5px;
   color: red;
-
 }
+
+.submit_button {
+  background-color: #42b983;
+  padding: 0.25em 0.5em;
+  border-radius: 8px;
+  font-size: 1em;
+  color: #2c3e50;
+  border: 2px solid #42b983;
+}
+.submit_button:hover{
+  color: #ffffff;
+}
+
 
 </style>
