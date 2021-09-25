@@ -2,17 +2,17 @@
     <h1>{{ msg }}</h1>
     <div>
       <h3>Base Currency: {{ baseCurrency }}</h3>
-      <div >
+      <div>
+          <p>
+            <label for="userInputAmount">Amount € </label>
+            <input name="userInputAmount" type="number" v-model="userInputAmount">
+          </p>
           <p>
             <label for="userInputCurrencyCode">Currency Code </label>
             <input name="userInputCurrencyCode" type="text" v-model="userInputCurrencyCode"> <span class="currency_not_valid" v-if="currencyCodeIsNotValid">Currency Code not valid!</span>
           </p>
-          <p>
-            <label for="userInputAmount">Amount </label>
-            <input name="userInputAmount" type="number" v-model="userInputAmount">
-          </p>
           <button type="submit" class="submit_button" @click="getSelectedRate()">Convert</button>
-          <p v-if="showResult">{{ amount }} {{ currencyCode }} is {{ result.toFixed(2) }} {{ baseCurrency }}</p>
+          <p v-if="showResult">{{ amount.toFixed(2) }} {{ baseCurrency }} is {{ result.toFixed(2) }} {{ currencyCode }}</p>
       </div>
     </div>
 
@@ -58,7 +58,7 @@ export default {
               this.rateOfCurrency = this.rates[cCode]
               // this.result = this.userInputAmount * this.rateOfCurrency
               this.amount = this.userInputAmount
-              this.result = this.amount / this.rateOfCurrency
+              this.result = this.amount * this.rateOfCurrency
               this.currencyCodeIsNotValid = false,
               this.showResult = true
               break
@@ -67,6 +67,7 @@ export default {
             this.currencyCodeIsNotValid = true,
             this.currencyCode = null,
             this.rateOfCurrency = null
+            this.showResult = false
           }
       }
       console.log(this.currencyCode + ' ' + this.rateOfCurrency)
@@ -88,7 +89,11 @@ li {
 }
 a {
   color: #42b983;
-} 
+}
+
+input {
+  width: 7em;
+}
 
 .currency_not_valid {
   border: 2px solid red;
